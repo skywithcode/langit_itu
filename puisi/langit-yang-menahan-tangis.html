@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Langit yang Kupilih</title>
+
+    <link id="faviconTag" rel="icon" type="image/png" href="" />
     <link rel="stylesheet" href="../puisi.css" />
+    <script src="../theme.js" defer></script>
   </head>
   <body
     style="
@@ -16,7 +19,7 @@
     <a href="../index.html" class="back-btn" title="Kembali">←</a>
 
     <!-- Tombol Dark Mode -->
-    <button id="darkToggle" class="dark-toggle">🌙</button>
+    <button id="darkToggle" class="dark-toggle"></button>
 
     <!-- Konten -->
     <main class="puisi-container">
@@ -44,34 +47,5 @@
         </div>
       </div>
     </main>
-
-    <!-- Script Dark Mode -->
-    <script>
-      const html = document.documentElement;
-      const toggleBtn = document.getElementById("darkToggle");
-
-      function setTheme(mode) {
-        html.classList.remove("light-mode", "dark-mode");
-        html.classList.add(`${mode}-mode`);
-        localStorage.setItem("theme", mode);
-        toggleBtn.textContent = mode === "dark" ? "🌙" : "🌞";
-      }
-
-      const saved = localStorage.getItem("theme");
-      if (saved) {
-        setTheme(saved);
-      } else {
-        setTheme(
-          window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light"
-        );
-      }
-
-      toggleBtn.onclick = () => {
-        const mode = html.classList.contains("dark-mode") ? "light" : "dark";
-        setTheme(mode);
-      };
-    </script>
   </body>
 </html>
