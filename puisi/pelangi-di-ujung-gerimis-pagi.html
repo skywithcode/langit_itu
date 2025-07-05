@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Langit yang Kupilih</title>
+    <link rel="stylesheet" href="../puisi.css" />
+  </head>
+  <body
+    style="
+      background: url('../img/puisi/bg-puisi-2.jpg') center/cover no-repeat
+        fixed;
+    "
+  >
+    <!-- Tombol kembali -->
+    <a href="../index.html" class="back-btn" title="Kembali">←</a>
+
+    <!-- Tombol Dark Mode -->
+    <button id="darkToggle" class="dark-toggle">🌙</button>
+
+    <!-- Konten -->
+    <main class="puisi-container">
+      <div class="puisi-box">
+        <h1>🌈 Pelangi di Ujung Gerimis Pagi</h1>
+        <div class="isi-puisi">
+          <div class="bait">
+            <p>Ketika embun masih setia di jendela,</p>
+            <p>dan burung belum selesai merangkai doa,</p>
+            <p>tiba-tiba langit membuka tirainya—</p>
+            <p>sehelai cahaya melintasi luka-luka basah.</p>
+          </div>
+          <div class="bait">
+            <p>Gerimis tadi bukan sekadar hujan,</p>
+            <p>ia adalah air mata bumi</p>
+            <p>yang jatuh tanpa suara,</p>
+            <p>membasahi pipi yang diam-diam bicara.</p>
+          </div>
+          <div class="bait">
+            <p>Lalu kau datang,</p>
+            <p>pelangi pagi yang tak biasa—</p>
+            <p>bukan di langit tinggi,</p>
+            <p>melainkan di pelupuk mata yang baru saja sembuh dari kecewa.</p>
+          </div>
+          <div class="bait">
+            <p>Kau bukan sekadar warna,</p>
+            <p>kau adalah harapan yang menolak pudar.</p>
+            <p>Bahwa setelah luka,</p>
+            <p>ada cahaya,</p>
+            <p>dan setelah air mata,</p>
+            <p>ada alasan untuk tersenyum—meski hanya sebentar.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Script Dark Mode -->
+    <script>
+      const html = document.documentElement;
+      const toggleBtn = document.getElementById("darkToggle");
+
+      function setTheme(mode) {
+        html.classList.remove("light-mode", "dark-mode");
+        html.classList.add(`${mode}-mode`);
+        localStorage.setItem("theme", mode);
+        toggleBtn.textContent = mode === "dark" ? "🌙" : "🌞";
+      }
+
+      const saved = localStorage.getItem("theme");
+      if (saved) {
+        setTheme(saved);
+      } else {
+        setTheme(
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"
+        );
+      }
+
+      toggleBtn.onclick = () => {
+        const mode = html.classList.contains("dark-mode") ? "light" : "dark";
+        setTheme(mode);
+      };
+    </script>
+  </body>
+</html>

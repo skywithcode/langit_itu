@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Langit yang Kupilih</title>
+    <link rel="stylesheet" href="../puisi.css" />
+  </head>
+  <body
+    style="
+      background: url('../img/puisi/bg-puisi-3.jpg') center/cover no-repeat
+        fixed;
+    "
+  >
+    <!-- Tombol kembali -->
+    <a href="../index.html" class="back-btn" title="Kembali">←</a>
+
+    <!-- Tombol Dark Mode -->
+    <button id="darkToggle" class="dark-toggle">🌙</button>
+
+    <!-- Konten -->
+    <main class="puisi-container">
+      <div class="puisi-box">
+        <h1>🌫️ Langit yang Menahan Tangis</h1>
+        <div class="isi-puisi">
+          <div class="bait">
+            <p>Langit hari ini tak bicara,</p>
+            <p>ia hanya termenung di balik awan abu-abu—</p>
+            <p>diamnya adalah isyarat,</p>
+            <p>bahwa tak semua duka harus turun sebagai hujan.</p>
+          </div>
+          <div class="bait">
+            <p>Ada luka yang tak tumpah,</p>
+            <p>karena terlalu mulia untuk jadi gerimis.</p>
+            <p>Ada sedih yang ditahan,</p>
+            <p>agar bumi tak ikut patah bersama isaknya.</p>
+          </div>
+          <div class="bait">
+            <p>Barangkali ia sedang menunggu,</p>
+            <p>sebuah pelukan dari senja,</p>
+            <p>atau mungkin bisikan malam,</p>
+            <p>yang berkata: "tak apa jika kau ingin menangis nanti saja..."</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Script Dark Mode -->
+    <script>
+      const html = document.documentElement;
+      const toggleBtn = document.getElementById("darkToggle");
+
+      function setTheme(mode) {
+        html.classList.remove("light-mode", "dark-mode");
+        html.classList.add(`${mode}-mode`);
+        localStorage.setItem("theme", mode);
+        toggleBtn.textContent = mode === "dark" ? "🌙" : "🌞";
+      }
+
+      const saved = localStorage.getItem("theme");
+      if (saved) {
+        setTheme(saved);
+      } else {
+        setTheme(
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"
+        );
+      }
+
+      toggleBtn.onclick = () => {
+        const mode = html.classList.contains("dark-mode") ? "light" : "dark";
+        setTheme(mode);
+      };
+    </script>
+  </body>
+</html>
