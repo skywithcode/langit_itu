@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Langit Itu</title>
+
+    <!-- Favicon dinamis -->
+    <link id="faviconTag" rel="icon" type="image/png" href="" />
+
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <!-- Tombol ☰ -->
+    <button id="menuToggle" class="menu-btn">☰</button>
+
+    <!-- Tombol Dark Mode -->
+    <button id="darkToggle" class="dark-toggle">🌙</button>
+
+    <!-- Overlay Blur -->
+    <div id="backdropBlur" class="backdrop hidden"></div>
+
+    <!-- Panel Sambutan -->
+    <div id="welcomePanel" class="floating-center hidden">
+      <div class="panel-content">
+        <h4>🌌 Langit</h4>
+        <p>Ini cuma cerita langit <br />yah..sekedar cerita langit</p>
+      </div>
+    </div>
+
+    <!-- Konten Utama -->
+    <main class="main-content">
+      <div class="puisi-grid">
+        <a href="puisi/pelangi-di-ujung-gerimis-pagi.html" class="puisi-card">
+          <h3>🌈 Pelangi di Ujung <br />Gerimis Pagi</h3>
+        </a>
+        <a href="puisi/langit-yang-kuingini.html" class="puisi-card">
+          <h3>🌠 Langit yang <br />Kuingini</h3>
+        </a>
+        <a href="puisi/langit-yang-menahan-tangis.html" class="puisi-card">
+          <h3>🌫️ Langit yang Menahan Tangis</h3>
+        </a>
+        <a href="di-balik-awan.html" class="puisi-card">
+          <h3>📖 Di Balik Awan</h3>
+        </a>
+        <a href="menunggu-hujan.html" class="puisi-card">
+          <h3>📖 Menunggu Hujan</h3>
+        </a>
+      </div>
+    </main>
+
+    <!-- Script Tema, Gambar, dan Favicon -->
+    <script>
+      const html = document.documentElement;
+      const toggleBtn = document.getElementById("darkToggle");
+      const menuToggle = document.getElementById("menuToggle");
+      const panel = document.getElementById("welcomePanel");
+      const backdrop = document.getElementById("backdropBlur");
+      const cards = document.querySelectorAll(".puisi-card");
+      const faviconTag = document.getElementById("faviconTag");
+
+      const lightImages = [
+        "img/cloud-1.png",
+        "img/cloud-2.png",
+        "img/cloud-3.png",
+        "img/cloud-4.png",
+        "img/cloud-5.png",
+      ];
+      const darkImages = [
+        "img/cloud-1-dark.png",
+        "img/cloud-2-dark.png",
+        "img/cloud-3-dark.png",
+        "img/cloud-4-dark.png",
+        "img/cloud-5-dark.png",
+      ];
+
+      function setRandomCloudImages(mode) {
+        const bgImages = mode === "dark" ? darkImages : lightImages;
+        cards.forEach((card) => {
+          const rand = Math.floor(Math.random() * bgImages.length);
+          card.style.backgroundImage = `url('${bgImages[rand]}')`;
+          card.style.backgroundRepeat = "no-repeat";
+          card.style.backgroundSize = "contain";
+          card.style.backgroundPosition = "center";
+          card.style.backgroundColor = "transparent";
+        });
+      }
+
+      function setTheme(mode) {
+        html.classList.remove("dark-mode", "light-mode");
+        html.classList.add(`${mode}-mode`);
+        localStorage.setItem("theme", mode);
+        toggleBtn.textContent = mode === "dark" ? "🌙" : "🌞";
+        setRandomCloudImages(mode);
+        updateFavicon(mode);
+      }
+
+      function updateFavicon(mode) {
+        const faviconPath =
+          mode === "dark" ? "favicon-dark.png" : "favicon-light.png";
+        faviconTag.setAttribute("href", faviconPath);
+      }
+
+      // Deteksi tema saat halaman dibuka
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+      setTheme(initialTheme);
+
+      // Toggle dark mode saat tombol diklik
+      toggleBtn.onclick = () => {
+        const isDark = html.classList.contains("dark-mode");
+        const newTheme = isDark ? "light" : "dark";
+        setTheme(newTheme);
+      };
+
+      // Buka/tutup panel sambutan
+      menuToggle.onclick = () => {
+        panel.classList.toggle("hidden");
+        backdrop.classList.toggle("hidden");
+      };
+
+      // Ubah favicon saat sistem OS berubah mode (opsional)
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+          const newTheme = e.matches ? "dark" : "light";
+          setTheme(newTheme);
+        });
+    </script>
+  </body>
+</html>
